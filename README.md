@@ -1,4 +1,17 @@
-# Corporate-Finance
-I am Lan Anh Nguyen, a business development and strategic partnerships professional working at the intersection of telecommunications, enterprise technology, and digital transformation. My background spans B2B sales strategy, cross-functional stakeholder management, and international partnership development, with experience supporting large enterprise clients and multinational ecosystems across Vietnam and Korea.
-My primary focus areas include enterprise technology solutions, account growth strategy, operational execution, and building scalable partnerships that create measurable business impact. Throughout my career, I have worked with complex stakeholders across organizations and contributed to initiatives involving telecom infrastructure, managed services, and strategic client engagement. I have supported projects and business opportunities valued at over 10 years and collaborated with teams across multiple countries/markets, helping drive execution and long-term partner relationships.
-Currently pursuing graduate-level business education, I aim to strengthen the connection between technology, finance, and strategic leadership. Long term, I aspire to lead regional business initiatives and help organizations scale through data-driven decision-making and cross-border collaboration.
+# Corporate Finance Portfolio
+
+This repository contains coursework, financial models, analyses, and deliverables developed throughout BUS-629 International Corporate Finance. The repository is structured to document both the process and outputs of financial analysis work.
+
+The goal is not only to store final deliverables, but also to maintain a transparent workflow including assumptions, decision records, modeling iterations, validation steps, and supporting materials.
+
+## Repository Structure
+
+- `BIO.md` – Extended professional biography and background information
+- `RESUME.md` – Professional resume in Markdown format
+- `docs/` – Written materials, references, and project decisions
+- `models/` – Financial models and supporting templates
+- `data/` – Source datasets and data provenance documentation
+- `analysis/` – Validation work and analytical reviews
+- `deliverables/` – Final presentation-ready outputs
+
+Files should be organized chronologically and updated throughout the course.
