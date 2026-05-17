@@ -134,7 +134,7 @@ Achievements:
 ## Certifications
 
 - AWS Cloud Practitioner Certification
-- IELTS 7.0
+- IELTS 7.5 (2025)
 - Fundamental of Management — CMC Corporation
 - Advance of Management — CMC Corporation
 
