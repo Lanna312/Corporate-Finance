@@ -1,19 +1,20 @@
 # Data Sources
 
-This directory stores source data and documentation regarding data origins.
+This directory stores source financial data and supporting information used throughout analysis.
 
 Examples:
 
-- company financial statements
-- market datasets
+- annual reports
+- investor presentations
+- downloaded financial statements
+- market data
 - assumptions files
-- downloaded reports
 
-Each dataset should document:
+Each dataset should include:
 
 - source
 - date collected
 - version
-- relevant notes
+- notes
 
-The goal is to maintain transparency and reproducibility.
+The purpose is to maintain transparency and reproducibility.
