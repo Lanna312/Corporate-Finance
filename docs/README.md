@@ -2,20 +2,25 @@
 
 This directory stores written materials and supporting documentation used throughout the project lifecycle.
 
-Contents may include:
+The purpose of this directory is to preserve context behind project work and maintain a record of assumptions, rationale, and supporting information.
 
-- project notes
-- assumptions
-- research references
+Typical contents include:
+
+- research notes
+- project assumptions
 - meeting notes
-- strategic decisions
-- supporting documents
+- business decisions
+- reference materials
+- planning documents
 
-The goal is to preserve context behind project work and create a traceable record of why decisions were made.
+## Folder Structure
 
-Subfolders:
+decisions/ → major project decisions and rationale
 
-- `decisions/` — decision memos and rationale
-- `specs/` — project specifications and requirements
-- `plans/` — optional plans, schedules, and timelines
-- `templates/` — references to standardized templates
+specs/ → project requirements and specifications
+
+plans/ → optional schedules and project planning
+
+templates/ → reusable document structures and formats
+
+Documents should be named descriptively and organized by topic.
