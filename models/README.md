@@ -1,12 +1,36 @@
-# Completed Models
+# Financial Models
 
-This directory contains finished or working versions of financial models.
+This directory contains all spreadsheet-based financial work developed during the course.
 
-Examples:
+The objective is to separate reusable templates from populated working models.
+
+## Folder Structure
+
+templates/
+
+Reusable frameworks:
+
+- DCF templates
+- valuation structures
+- forecasting templates
+- ratio models
+
+builds/
+
+Completed or active working files:
 
 - valuation models
-- forecasting models
 - scenario analyses
 - capital budgeting exercises
 
-Files here should represent active or completed work with assumptions and calculations included.
+## Naming Convention
+
+Recommended format:
+
+company-model-version.xlsx
+
+Examples:
+
+samsung-sds-dcf-v1.xlsx
+
+apple-forecast-v2.xlsx
