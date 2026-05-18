@@ -118,15 +118,15 @@ IFRS differences relative to U.S. GAAP, including lease treatment and presentati
 
 **Hypothesis 1 — Profitability**
 
-I expect operating margins to improve from FY2024 to FY2025 because cloud and digital transformation services generally generate higher margins than traditional IT outsourcing activities.
+I expect operating margin to expand from approximately **6.6% in FY2024 toward 6.8–7.2% in FY2025** because cloud and digital transformation revenue continues growing faster than overall company revenue. Samsung SDS reported FY2025 operating profit growth of approximately **5.0%** against revenue growth of only **0.7%**, suggesting operating leverage and favorable business mix effects. Higher-margin cloud and managed services should continue contributing disproportionately to profitability improvement.
 
 **Hypothesis 2 — Efficiency**
 
-I expect IT Services asset turnover to exceed Logistics asset turnover in FY2025 because IT operations maintain a more asset-light structure than logistics businesses.
+I expect **IT Services asset turnover to exceed Logistics asset turnover during FY2025**, because IT operations maintain a more asset-light structure while logistics businesses require larger working capital balances and infrastructure support. Total assets increased only **1.6% YoY**, while the company continued expanding cloud and digital services. If cloud growth continues without proportional asset expansion, asset productivity ratios should improve.
 
 **Hypothesis 3 — Liquidity**
 
-I expect liquidity ratios to remain strong from FY2024 to FY2025 because Samsung SDS maintains approximately KRW 6.4 trillion in cash and short-term investments against relatively modest current liabilities.
+I expect the **current ratio to remain above approximately 3.8x–4.0x during FY2025** because Samsung SDS maintains approximately **KRW 6.4 trillion** in cash and short-term investments against **KRW 2.3 trillion** in current liabilities and carries minimal financial leverage. This prediction is directly testable in Stage 3 through balance sheet ratio calculations and may confirm that liquidity remains structurally stronger than many technology service peers.
 
 ### 5. Ratio Categories Preview
 
