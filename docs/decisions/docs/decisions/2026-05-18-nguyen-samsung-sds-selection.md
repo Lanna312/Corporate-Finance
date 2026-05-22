@@ -27,8 +27,6 @@ I recommend **Samsung SDS Co., Ltd. (KRX: 018260)** as the subject company for t
 
 The company satisfies all course eligibility requirements and provides an analytically compelling profile through diversified operations across cloud services, enterprise IT solutions, and logistics technology platforms. Samsung SDS also maintains a financially conservative structure characterized by strong liquidity and minimal financial leverage.
 
-In addition, Samsung SDS offers direct professional relevance. Samsung SDS became a strategic shareholder of CMC Corporation in 2019, creating ecosystem collaboration opportunities with CMC Telecom. Through my role at CMC Telecom, I have participated in projects and strategic initiatives involving Samsung SDS-related activities. This industry familiarity provides practical context that complements financial analysis.
-
 Based on data availability, operational complexity, and strategic relevance, I recommend Samsung SDS for subsequent project stages.
 
 ---
@@ -118,33 +116,31 @@ IFRS differences relative to U.S. GAAP, including lease treatment and presentati
 
 **Hypothesis 1 — Profitability**
 
-I expect operating margin to expand from approximately **6.6% in FY2024 toward 6.8–7.2% in FY2025** because cloud and digital transformation revenue continues growing faster than overall company revenue. Samsung SDS reported FY2025 operating profit growth of approximately **5.0%** against revenue growth of only **0.7%**, suggesting operating leverage and favorable business mix effects. Higher-margin cloud and managed services should continue contributing disproportionately to profitability improvement.
+I expect operating margin to expand from approximately **6.6% in FY2024 toward 6.8–7.2% in FY2025** because cloud and digital transformation revenue continues growing faster than overall company revenue. Samsung SDS reported FY2025 operating profit growth of approximately **5.0%** against revenue growth of only **0.7%**, suggesting operating leverage and favorable business mix effects. 
 
 **Hypothesis 2 — Efficiency**
 
-I expect **IT Services asset turnover to exceed Logistics asset turnover during FY2025**, because IT operations maintain a more asset-light structure while logistics businesses require larger working capital balances and infrastructure support. Total assets increased only **1.6% YoY**, while the company continued expanding cloud and digital services. If cloud growth continues without proportional asset expansion, asset productivity ratios should improve.
+I expect **IT Services asset turnover to exceed Logistics asset turnover during FY2025**, because IT operations maintain a more asset-light structure while logistics businesses require larger working capital balances and infrastructure support. Total assets increased only **1.6% YoY**, while the company continued expanding cloud and digital services. 
 
 **Hypothesis 3 — Liquidity**
 
-I expect the **current ratio to remain above approximately 3.8x–4.0x during FY2025** because Samsung SDS maintains approximately **KRW 6.4 trillion** in cash and short-term investments against **KRW 2.3 trillion** in current liabilities and carries minimal financial leverage. This prediction is directly testable in Stage 3 through balance sheet ratio calculations and may confirm that liquidity remains structurally stronger than many technology service peers.
+I expect the **current ratio to remain above approximately 3.8x–4.0x during FY2025** because Samsung SDS maintains approximately **KRW 6.4 trillion** in cash and short-term investments against **KRW 2.3 trillion** in current liabilities and carries minimal financial leverage. 
 
 ### 5. Ratio Categories Preview
 
 | Category | Relevance |
 |---|---|
-| Profitability | Cloud business growth may improve operating returns |
+| Profitability | Cloud business growth is expected to improve operating returns |
 | Efficiency | IT and Logistics segments likely have different operating structures |
 | Liquidity | Cash-rich structure expected to produce strong ratios |
 | Leverage | Low debt profile creates distinctive solvency characteristics |
-| Market | Market valuation may reflect cloud growth expectations |
+| Market | Market valuation should reflect cloud growth expectations |
 
 ---
 
 ## Implications
 
 Samsung SDS represents a financially conservative company with strong liquidity and diversified international operations. Future ratio analysis may reveal whether growth in cloud services and digital transformation initiatives is translating into measurable improvements in profitability and operating efficiency.
-
-The company also offers opportunities to connect academic analysis with practical industry context.
 
 ---
 
@@ -167,20 +163,4 @@ The company also offers opportunities to connect academic analysis with practica
 
 ## References
 
-Samsung SDS Co., Ltd. Annual Report 2025.
-
-Samsung SDS Investor Relations — Financial Information
-
-https://www.samsungsds.com/en/investor/financial_info/about_ir_fif.html
-
-DART Filing System
-
-https://dart.fss.or.kr
-
-Korea Exchange (KRX)
-
-https://global.krx.co.kr
-
-Yahoo Finance — Samsung SDS (018260.KS)
-
-https://finance.yahoo.com/quote/018260.KS
+As above Source Content
