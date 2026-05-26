@@ -33,21 +33,13 @@ Fiscal periods:
 - FY2025 (Current)
 - FY2024 (Prior)
 
-Reporting standard:
+Reporting standard:K-IFRS
 
-K-IFRS
+Reporting currency: KRW billion
 
-Reporting currency:
+Analytical objective: Evaluate Samsung SDS operating performance, profitability, capital structure, efficiency, liquidity, and shareholder value creation through a comprehensive accounting ratio framework.
 
-KRW billion
-
-Analytical objective:
-
-Evaluate Samsung SDS operating performance, profitability, capital structure, efficiency, liquidity, and shareholder value creation through a comprehensive accounting ratio framework.
-
-Audience:
-
-Executive Management
+Audience: Executive Management
 
 Benchmarking requirements:
 
@@ -135,13 +127,9 @@ Rules:
 
 Formula:
 
-BAL_total_debt_2025
+BAL_total_debt_2025 = BAL_debt_due_repayment_2025 + BAL_long_term_debt_2025
 
-= BAL_debt_due_repayment_2025 + BAL_long_term_debt_2025
-
-BAL_total_debt_2024
-
-= BAL_debt_due_repayment_2024 + BAL_long_term_debt_2024
+BAL_total_debt_2024 = BAL_debt_due_repayment_2024 + BAL_long_term_debt_2024
 
 ---
 
@@ -190,10 +178,10 @@ BAL_total_debt_2024
 
 Required format:
 
-BAL_<metric>_<year>  
-INC_<metric>_<year>  
-CASH_<metric>_<year>  
-RATIO_<metric>  
+BAL_metric_year  
+INC_metric_year 
+CASH_metric_year 
+RATIO_metric_year 
 
 Examples:
 
@@ -205,51 +193,25 @@ INC_sales_2025
 
 INC_net_income_2025
 
-Mandatory rule:
-
-All financial variables require year suffixes.
-
-No exceptions.
+Mandatory rule: All financial variables require year suffixes. No exceptions.
 
 ---
 
 ## 5. Derived Inputs
 
-BAL_avg_assets
-
-=(BAL_assets_total_2025+BAL_assets_total_2024)/2
-
-=(13453.77+13238.41)/2
-
-=13346.09
+BAL_avg_assets =(BAL_assets_total_2025+BAL_assets_total_2024)/2 =(13453.77+13238.41)/2 =13346.09
 
 ---
 
-BAL_avg_equity
-
-=(BAL_equity_total_2025+BAL_equity_total_2024)/2
-
-=(10262.90+9705.45)/2
-
-=9984.18
+BAL_avg_equity =(BAL_equity_total_2025+BAL_equity_total_2024)/2 =(10262.90+9705.45)/2 =9984.18
 
 ---
 
-BAL_avg_receivables
-
-=(2595+2534)/2
-
-=2564.50
+BAL_avg_receivables =(2595+2534)/2 =2564.50
 
 ---
 
-INC_NOPAT_2025
-
-=INC_ebit_2025 × (1−ASSUMP_tax_rate_2025)
-
-=957.10 × (1−27.25%)
-
-=696.27
+INC_NOPAT_2025 =INC_ebit_2025 × (1−ASSUMP_tax_rate_2025) =957.10 × (1−27.25%) =696.27
 
 ---
 
@@ -257,71 +219,39 @@ INC_NOPAT_2025
 
 ### Profitability
 
-RATIO_GrossMargin
+RATIO_GrossMargin =(INC_sales_2025−INC_cogs_2025)/INC_sales_2025
 
-=(INC_sales_2025−INC_cogs_2025)/INC_sales_2025
+RATIO_OperatingMargin =INC_ebit_2025/INC_sales_2025
 
-RATIO_OperatingMargin
+RATIO_NetMargin =INC_net_income_2025/INC_sales_2025
 
-=INC_ebit_2025/INC_sales_2025
+RATIO_ROA =INC_net_income_2025/BAL_avg_assets
 
-RATIO_NetMargin
+RATIO_ROE =INC_net_income_2025/BAL_avg_equity
 
-=INC_net_income_2025/INC_sales_2025
-
-RATIO_ROA
-
-=INC_net_income_2025/BAL_avg_assets
-
-RATIO_ROE
-
-=INC_net_income_2025/BAL_avg_equity
-
-RATIO_ROCE
-
-=INC_NOPAT_2025/
+RATIO_ROCE =INC_NOPAT_2025/
 (BAL_total_debt_2025+BAL_equity_total_2025)
 
 ---
 
 ### Efficiency
 
-RATIO_AssetTurnover
+RATIO_AssetTurnover =INC_sales_2025/BAL_avg_assets
 
-=INC_sales_2025/BAL_avg_assets
+RATIO_FixedAssetTurnover =INC_sales_2025/BAL_net_fixed_assets_2025
 
-RATIO_FixedAssetTurnover
+RATIO_ReceivableTurnover =INC_sales_2025/BAL_avg_receivables
 
-=INC_sales_2025/BAL_net_fixed_assets_2025
+RATIO_InventoryTurnover =INC_cogs_2025/BAL_inventory_2025
 
-RATIO_ReceivableTurnover
+RATIO_APTurnover =INC_cogs_2025/BAL_accounts_payable_2025
 
-=INC_sales_2025/BAL_avg_receivables
+RATIO_DSO =365/RATIO_ReceivableTurnover
 
-RATIO_InventoryTurnover
+RATIO_DIO =365/RATIO_InventoryTurnover
 
-=INC_cogs_2025/BAL_inventory_2025
-
-RATIO_APTurnover
-
-=INC_cogs_2025/BAL_accounts_payable_2025
-
-RATIO_DSO
-
-=365/RATIO_ReceivableTurnover
-
-RATIO_DIO
-
-=365/RATIO_InventoryTurnover
-
-RATIO_CCC
-
-=
-RATIO_DSO
-+
-RATIO_DIO
-−
-(365/RATIO_APTurnover)
+RATIO_CCC =
+RATIO_DSO + RATIO_DIO − (365/RATIO_APTurnover)
 
 ---
 
@@ -329,113 +259,51 @@ RATIO_DIO
 
 RATIO_Current
 
-=BAL_current_assets_2025/
-BAL_current_liabilities_2025
+=BAL_current_assets_2025/BAL_current_liabilities_2025
 
-RATIO_Quick
-
-=(BAL_current_assets_2025−BAL_inventory_2025)
+RATIO_Quick =(BAL_current_assets_2025−BAL_inventory_2025)
 /BAL_current_liabilities_2025
 
-RATIO_Cash
-
-=BAL_cash_2025/
+RATIO_Cash =BAL_cash_2025/
 BAL_current_liabilities_2025
 
-RATIO_WorkingCapital
-
-=
-BAL_current_assets_2025
-−
-BAL_current_liabilities_2025
+RATIO_WorkingCapital = BAL_current_assets_2025 − BAL_current_liabilities_2025
 
 ---
 
 ### Leverage
 
-RATIO_DebtEquity
+RATIO_DebtEquity =BAL_total_debt_2025/ BAL_equity_total_2025
 
-=BAL_total_debt_2025/
-BAL_equity_total_2025
+RATIO_DebtRatio =BAL_total_debt_2025/BAL_assets_total_2025
 
-RATIO_DebtRatio
+RATIO_LongTermDebtRatio =BAL_long_term_debt_2025/BAL_assets_total_2025
 
-=BAL_total_debt_2025/
-BAL_assets_total_2025
+RATIO_InterestCoverage =INC_ebit_2025/INC_interest_expense_2025
 
-RATIO_LongTermDebtRatio
-
-=BAL_long_term_debt_2025/
-BAL_assets_total_2025
-
-RATIO_InterestCoverage
-
-=INC_ebit_2025/
-INC_interest_expense_2025
-
-RATIO_EquityMultiplier
-
-=
-BAL_avg_assets/
-BAL_avg_equity
+RATIO_EquityMultiplier = BAL_avg_assets/ BAL_avg_equity
 
 ---
 
 ### Market Ratios
 
-RATIO_EPS
+RATIO_EPS = INC_net_income_2025/MARKET_shares_outstanding_2025
 
-=
-INC_net_income_2025
-/
-MARKET_shares_outstanding_2025
+RATIO_PE = MARKET_share_price_2025/RATIO_EPS
 
-RATIO_PE
+RATIO_DividendPayout = INC_dividend_2025/INC_net_income_2025
 
-=
-MARKET_share_price_2025
-/
-RATIO_EPS
-
-RATIO_DividendPayout
-
-=
-INC_dividend_2025
-/
-INC_net_income_2025
-
-RATIO_RetentionRatio
-
-=
-1−RATIO_DividendPayout
+RATIO_RetentionRatio = 1−RATIO_DividendPayout
 
 ---
 
 ### DuPont Components
 
-RATIO_DuPont_ProfitMargin
+RATIO_DuPont_ProfitMargin = RATIO_NetMargin
 
-=
-RATIO_NetMargin
-
-RATIO_DuPont_AssetTurnover
-
-=
-RATIO_AssetTurnover
-
-RATIO_DuPont_EquityMultiplier
-
-=
-RATIO_EquityMultiplier
-
-RATIO_ROE
-
-=
-RATIO_NetMargin
-×
-RATIO_AssetTurnover
-×
-RATIO_EquityMultiplier
+RATIO_DuPont_AssetTurnover = RATIO_AssetTurnover
+RATIO_DuPont_EquityMultiplier = RATIO_EquityMultiplier
+RATIO_ROE = RATIO_NetMargin × RATIO_AssetTurnover × RATIO_EquityMultiplier
 
 ---
 
@@ -443,15 +311,7 @@ RATIO_EquityMultiplier
 
 Validation 1:
 
-BAL_assets_total_2025
-
-=
-
-BAL_total_liabilities_2025
-
-+
-
-BAL_equity_total_2025
+BAL_assets_total_2025 = BAL_total_liabilities_2025 + BAL_equity_total_2025
 
 Tolerance ±1%
 
@@ -459,11 +319,7 @@ Tolerance ±1%
 
 Validation 2:
 
-DuPont ROE
-
-=
-
-Direct ROE
+DuPont ROE = Direct ROE
 
 Tolerance ±0.5%
 
@@ -495,13 +351,7 @@ Validation 5:
 
 Free cash flow:
 
-CASH_free_cashflow_2025
-
-=
-
-CASH_operating_cashflow_2025
-+
-CASH_capex_2025
+CASH_free_cashflow_2025 = CASH_operating_cashflow_2025 + CASH_capex_2025
 
 ---
 
