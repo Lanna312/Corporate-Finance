@@ -12,10 +12,11 @@ notes: "Samsung SDS Co., Ltd., K-IFRS reporting standard, KRW reporting currency
 
 **Author:** Nguyen Lan Anh
 **Date:** 2026-05-27
-**Version:** 2.1
+**Version:** 2.2
 **Company:** Samsung SDS Co., Ltd., Ticker 018260.KS, Korea Exchange (KRX)
 
 > **Changelog**
+> - **v2.2 (2026-05-28)** — Response to instructor sweep review (PR #2). (a) Enhanced §6.1 EVA flagged finding with three-reading strategic interpretation (capital-productivity gap, over-capitalization hypothesis, Du Pont reconciliation) and explicit Stage 5 strategic implication. (b) Expanded §7 Validation Rules from 9 to 14 — added V10 retained-earnings roll-forward, V11 sign-consistency, V12 quick<current ordering, V13 FCF positivity, V14 net-income-to-retained-earnings reconciliation. (c) Restructured §8 to add §8.1 "Specific analytical questions per ratio category" (sharpens analytical thread for Stage 5), reformatted hypothesis testing as §8.2 formal evaluation framework with five-field structure (Hypothesis / Operationalization / Test methodology / Result / Strategic implication) anchored to Stage 2 memo H1/H2/H3, and renumbered peer benchmark to §8.3.
 > - **v2.1 (2026-05-27)** — Added dedicated §4 *Named Range Conventions* master map (rubric Part A item 4). Renumbered subsequent sections. Tightened §11 Output Format alignment.
 > - **v2.0 (2026-05-27)** — Aligned all named ranges to the `_curr` / `_prior` convention used in the Stage 3 workbook (replacing the year-suffix convention drafted in v1.0). Corrected Du Pont decomposition from 3-component to the 4-component extended form actually built into the workbook (`RATIO_leverage × RATIO_asset_turnover × RATIO_operating_profit_margin × RATIO_debt_burden`). Populated every Data Input value numerically from the Stage 3 workbook. Added analytical requirement (§8) flagging the negative-EVA finding (−14 KRW bn) surfaced during population — see HIL note in the prompt log.
 > - **v1.0 (2026-05-27)** — Initial LLM-drafted skeleton from spec template, Stage 4 brief, and Stage 2 memo (pre-Stage-3 data).
@@ -120,7 +121,7 @@ All values in **KRW billions** unless otherwise noted. Source: Samsung SDS Annua
 | Dividends | 233 | 1.7% |
 | Addition to retained earnings | 550 | 3.9% |
 
-> **Note:** The Stage 3 workbook contains FY2025 Income Statement only. FY2024 Income Statement values referenced in the Stage 2 memo (Revenue 13,828; EBIT 911; Net income 790) are used **for hypothesis context only** in §8.1, not as named ranges in the model.
+> **Note:** The Stage 3 workbook contains FY2025 Income Statement only. FY2024 Income Statement values referenced in the Stage 2 memo (Revenue 13,828; EBIT 911; Net income 790) are used **for hypothesis context only** in §8.2 (H1), not as named ranges in the model. Sourcing FY2024 IS/CFS from DART filings before Stage 5 execution would enable two-period margin trend ratios and is recommended as an open item.
 
 **3.3 Cash Flow Statement — FY2025 (Current fiscal year only)**
 
@@ -372,7 +373,17 @@ Twenty-seven ratios in six categories. Every ratio is expressed in named-range n
 | Market-to-book ratio | `RATIO_market_to_book` | =`market_capitalization` / `currentYear_equity` | x | 1.41x | >1.0x = market values intangibles / growth beyond book |
 | Economic value added | `RATIO_eva` | =`currentYear_after_tax_operating_income` − (`cost_capital` × `startYear_total_capitalization`) | KRW bn | **(14)** | **Negative — returns just below 9.0% cost of capital** |
 
-> **Flagged finding:** EVA is slightly negative (−14 KRW bn) despite positive ROC of 8.9%, because the start-of-year invested capital of 10,422 multiplied by the 9.0% cost of capital (938) exceeds the after-tax operating income of 924. Stage 5 must address this in §8 and §10.
+> **Flagged finding — strategic interpretation (mandatory for Stage 5):**
+>
+> EVA is slightly negative (−14 KRW bn) despite positive ROC of 8.9%. The arithmetic: `startYear_total_capitalization` (10,422) × `cost_capital` (9.0%) = 938 > `currentYear_after_tax_operating_income` (924) — a 14 KRW bn marginal value-destruction signal. Three readings the Stage 5 analysis must resolve:
+>
+> **Reading 1 — Capital-productivity gap.** Samsung SDS earns 0.1 percentage points *below* its 9.0% cost of capital (ROC start-of-year = 8.9%). For a KRW 14.4 trillion market-cap firm, this signals returns roughly *at* — but not *above* — the marginal hurdle investors require. Consistent with a high-quality, low-growth profile rather than a value-creation engine. The 0.1pp gap is small but **directional**: it tells the executive reader the firm is *not* compounding value on incremental capital deployed.
+>
+> **Reading 2 — Over-capitalization hypothesis.** Three signals stack: (i) `RATIO_leverage` = 1.31x is well below IT-services peer norms of 1.8–2.5x; (ii) `currentYear_cash_marketable_securities` = 6,380 represents 47% of `currentYear_assets_total` (13,454); (iii) `RATIO_eva` is negative. Together these suggest the equity base is *too large* relative to value-creating opportunities — the firm carries excess capital that is not earning its cost. The over-capitalization reading reframes the negative EVA as **a capital-allocation problem, not an operating problem**.
+>
+> **Reading 3 — Du Pont reconciliation.** `RATIO_roe_avg` of 7.8% sits below the 9.0% `cost_capital`. The 4-component Du Pont decomposition (§6.6) reveals `RATIO_leverage` (1.31x) is the binding constraint: `RATIO_operating_profit_margin` (6.6%) and `RATIO_asset_turnover` (1.05x) are at industry norms, but the under-leveraged balance sheet mechanically caps ROE below the cost-of-equity hurdle. ROE would clear 9.0% if leverage rose to ~1.55x with everything else held constant.
+>
+> **Stage 5 strategic implication:** The negative-EVA finding **shifts the recommendation set from "improve operations" to "address capital structure"**. Tactical buybacks reducing the equity base, special dividends, or productive deployment of the KRW 6.4 trn cash position (into accretive M&A or differentiated capex) are the highest-NPV levers — *not* operating efficiency. This must be the central thread of §10's mandatory cost-of-capital recommendation.
 
 **6.2 Profitability**
 
@@ -433,7 +444,7 @@ Twenty-seven ratios in six categories. Every ratio is expressed in named-range n
 
 ### 7. Validation Rules
 
-The model must pass all checks below; any failure invalidates the analysis.
+The model must pass all 14 checks below; any failure invalidates the analysis. Rules V1–V9 are pre-population integrity checks; V10–V14 are sophisticated cross-statement reconciliation and sign-consistency tests added in v2.2 per instructor sweep-review guidance.
 
 | # | Check | Pass condition | FY2025 result |
 |---|---|---|---|
@@ -446,6 +457,13 @@ The model must pass all checks below; any failure invalidates the analysis.
 | V7 | Memo cross-check — EBIT margin | `INC_ebit` / `INC_sales` ≈ 6.9% (memo Two-Year Snapshot) | 957 / 13,930 = 6.87% ≈ 6.9% ✓ |
 | V8 | Effective tax sanity | `INC_taxes` / `INC_taxable_income` ≈ `tax_rate` (workbook assumption 27.3%) | 293 / 1,076 = 27.23% ≈ 27.3% ✓ |
 | V9 | Negative-denominator guard | All denominators in §6 > 0 | Pass |
+| V10 | Retained earnings roll-forward | `BAL_retained_earnings_prior` + (`INC_net` − `INC_dividends`) ≈ `BAL_retained_earnings_curr` (tolerance ±50 KRW bn for treasury / other equity adjustments) | 7,995 + (783 − 233) = 8,545 vs 8,530 → Δ = 15 KRW bn (0.18%) ✓ |
+| V11 | Sign-consistency — Operating profitability | Sign(`INC_ebit`) = Sign(`RATIO_operating_profit_margin`) = Sign(`RATIO_roa_start`) | + = + = + ✓ |
+| V12 | Liquidity ordering (Quick ≤ Current) | `RATIO_quick` ≤ `RATIO_current` (always true if `BAL_inventories_curr` ≥ 0) | 3.85x ≤ 4.03x ✓ |
+| V13 | Free Cash Flow positivity | `CFS_operating` − ABS(`CFS_capex`) > 0 (FCF before financing) | 1,061 − 386 = 675 > 0 ✓ |
+| V14 | Net-income-to-retained-earnings reconciliation | `INC_net` ≈ `INC_dividends` + `INC_addition_retained_earnings` (tolerance ±0.5 KRW bn) | 783 = 233 + 550 = 783 ✓ |
+
+> **Note on V10 (0.18% residual):** The 15 KRW bn gap between rolled-forward and reported retained earnings is attributable to (a) other comprehensive income (FX translation on overseas subsidiaries, primarily Vietnam logistics affiliate), (b) equity-method gains/losses, or (c) treasury stock movement. Stage 5 should source the K-IFRS Statement of Changes in Equity to decompose this gap precisely — it is small enough not to invalidate the ratio results but interesting enough to mention in the §3 Profitability narrative.
 
 ---
 
@@ -453,26 +471,74 @@ The model must pass all checks below; any failure invalidates the analysis.
 
 ### 8. Analysis Requirements
 
-Stage 5 produces a **structured analytical narrative** for each ratio category, supported by computed values from §6 and benchmarks.
+Stage 5 produces a **structured analytical narrative** for each ratio category, supported by computed values from §6, the validation results from §7, and the benchmarks in §8.3.
 
-**For every category:**
+**Standard structure for every category:**
 
 1. State the FY2025 ratio value (from §6) with named range cited (e.g., `RATIO_current` = 4.03x).
 2. Where comparable, state the FY2024 figure (balance-sheet-derived ratios only); else reference the Stage 2 memo Two-Year Snapshot for context.
-3. Interpret the directional reading in plain business terms (one to two sentences).
-4. Compare to **two benchmark sets**:
-   - **Self-vs-hypothesis** — confirm or refute the three hypotheses in §8.1.
+3. Answer the category-specific analytical question listed in §8.1.
+4. Interpret the directional reading in plain business terms (one to two sentences).
+5. Compare to **two benchmark sets**:
+   - **Self-vs-hypothesis** — confirm or refute the three hypotheses in §8.2 using the formal framework.
    - **Industry peers** — Korean IT services (LG CNS, NAVER Cloud, Lotte Information Communication) and global IT services majors (Accenture, IBM Consulting, Tata Consultancy Services), using most recent full-year ratios.
-5. Identify cross-category connections (e.g., high liquidity coexisting with low leverage; asset-light operations lifting asset turnover and ROA together).
-6. **Mandatory finding:** Surface the negative EVA (−14 KRW bn) and explain its strategic implication — Samsung SDS's ROC of 8.9% is just below the 9.0% assumed cost of capital, so the company earned marginally less than its cost of capital on FY2025 invested capital.
+6. Identify cross-category connections (e.g., high liquidity coexisting with low leverage; asset-light operations lifting asset turnover and ROA together).
+7. **Mandatory finding:** Surface the negative EVA (−14 KRW bn) and explain its strategic implication per §6.1 three-reading framework — Samsung SDS earned marginally below its 9.0% cost of capital on FY2025 invested capital; reframe as **capital-allocation problem**, not operating problem.
 
-**8.1 Hypotheses to test (from Stage 2 memo)**
+---
 
-- **H1 Profitability** — Operating margin expands from 6.6% (FY2024) toward 6.8–7.2% (FY2025) driven by higher-margin cloud / digital-transformation mix. **Test:** `INC_ebit` / `INC_sales` = 6.9% lies inside 6.8–7.2% → **H1 confirmed**. Stage 5 must note that workbook's `RATIO_operating_profit_margin` (NOPAT-based, 6.6%) is a different construct than memo's EBIT margin.
-- **H2 Efficiency** — IT Services segment asset turnover exceeds Logistics segment asset turnover in FY2025. **Test:** segment disclosures from K-IFRS filings; if segment data unavailable, perform narrative-only assessment and note the limitation explicitly.
-- **H3 Liquidity** — Current ratio remains above 3.8x–4.0x in FY2025. **Test:** `RATIO_current` = 4.03x exceeds 4.0x → **H3 confirmed**.
+#### 8.1 Specific analytical questions per ratio category
 
-**8.2 Peer benchmark table (Stage 5 must populate)**
+One sharp question per category to anchor the narrative. Stage 5 must answer each explicitly — these are **not** rhetorical.
+
+| Category | Anchoring question | Why this question matters |
+|---|---|---|
+| **Performance** | Does Samsung SDS's `RATIO_market_to_book` of 1.41x reflect growth expectations consistent with the negative `RATIO_eva` finding, or does it imply the market is pricing in operational improvements not yet visible in the FY2025 ratios? | Tests whether the market's optimism is justified or speculative — directly informs §10 investor-communication recommendation. |
+| **Profitability** | Is the gap between `RATIO_operating_profit_margin` (6.6% NOPAT-based) and the memo's EBIT margin (6.9%) meaningful for FY2024 → FY2025 trend interpretation, given the workbook's single-year IS scope? | Forces Stage 5 to handle the terminology distinction without conflating constructs; flags the FY2024 IS data gap as an analytical limitation. |
+| **Efficiency** | With `RATIO_average_collection_period` at 66.4 days, what does this signal about Samsung SDS's customer base composition (e.g., government enterprise contracts vs. retail logistics SMEs vs. intra-group affiliates)? | Days-sales-outstanding is uninformative without segment context; this question forces analyst to engage with the *why* behind the number. |
+| **Leverage** | At `RATIO_long_term_debt_equity` of 0.05x, is Samsung SDS preserving optionality for future M&A and capital-flexible strategic moves, or is it leaving financial-engineering value on the table (per the §6.1 over-capitalization reading)? | Directly bridges to the §10 mandatory cost-of-capital recommendation; tests whether conservative balance sheet is intentional or accidental. |
+| **Liquidity** | Does `RATIO_current` of 4.03x signal financial strength and Vietnam/SE Asia M&A optionality, or signal inefficient deployment of working capital relative to industry norms (typically 1.5–2.5x for IT services)? | The headline H3-confirmation answer is "strength"; the deeper answer must wrestle with the EVA implications. |
+| **Du Pont** | The 4-component decomposition shows `RATIO_leverage` (1.31x) as the binding constraint. Is the under-leveraged balance sheet a deliberate strategic choice tied to the Samsung Group's overall risk posture, or an unforced error in capital allocation? | Pushes the analyst from arithmetic decomposition to strategic decomposition. The honest answer reframes the §10 recommendation set. |
+
+---
+
+#### 8.2 Hypothesis-evaluation framework
+
+The three hypotheses from the Stage 2 selection memo are tested below using a uniform five-field structure: *Hypothesis → Operationalization → Test methodology → Result → Strategic implication*. Stage 5 must populate each row, including the Result field with the computed numeric and the Strategic implication field with the executive-level "so what?".
+
+**H1 — Profitability (margin expansion via cloud/digital-transformation business mix)**
+
+| Field | Detail |
+|---|---|
+| Hypothesis | Operating margin expands from 6.6% (FY2024) toward 6.8–7.2% (FY2025) driven by higher-margin cloud and digital-transformation revenue share growing faster than total revenue. |
+| Operationalization | EBIT margin = `INC_ebit` / `INC_sales`. Note: Workbook's `RATIO_operating_profit_margin` is NOPAT-based (6.6%) — different construct, must be labeled separately. |
+| Test methodology | Compute `INC_ebit` (957) / `INC_sales` (13,930) = 6.87%, compare to the memo's FY2024 6.6% baseline and to the 6.8–7.2% expected band. |
+| Result | 6.87% lies inside the 6.8–7.2% band, expanded ~30 bps YoY → **H1 confirmed**. |
+| Strategic implication | Mix shift is *operating* but at the *low end* of the expected band — suggests cloud growth is real but not yet accelerating disproportionately. Stage 5 should test FY2026 trajectory: is cloud revenue share *accelerating* or *decelerating*? The §10 business-mix recommendation depends on this directional read. |
+
+**H2 — Efficiency (segment asset-productivity asymmetry)**
+
+| Field | Detail |
+|---|---|
+| Hypothesis | IT Services segment asset turnover > Logistics segment asset turnover in FY2025 (IT services is asset-light; Logistics is asset-heavy due to warehousing and equipment). |
+| Operationalization | Segment-level asset turnover = Segment Revenue / Segment Assets, pulled from K-IFRS Segment Disclosure note. |
+| Test methodology | Source the segment note from the FY2025 K-IFRS filing on DART; compute by-segment Asset Turnover. If segment data is unavailable or aggregated, perform narrative-only assessment using peer-IT-services and peer-Logistics ratio proxies and flag the limitation explicitly. |
+| Result | **TBD in Stage 5** (depends on segment-data availability). |
+| Strategic implication | If H2 confirmed → company-wide `RATIO_asset_turnover` (1.05x) understates IT Services capital productivity; Logistics is dragging the consolidated figure. The §10 capital-allocation recommendation should consider whether Logistics warrants strategic review (carve-out / partnership / disposal) to lift consolidated returns. If H2 refuted or unevaluable → defer recommendation; note data limitation. |
+
+**H3 — Liquidity (structural cash-richness)**
+
+| Field | Detail |
+|---|---|
+| Hypothesis | Current ratio remains structurally high (>3.8x–4.0x) in FY2025 due to KRW 6.4 trn cash position vs KRW 2.3 trn current liabilities. |
+| Operationalization | `RATIO_current` = `currentYear_assets_current` / `currentYear_liabilities_current`. |
+| Test methodology | Compute `RATIO_current` = 9,406 / 2,332 = 4.03x; compare to 3.8x lower threshold and 4.0x upper threshold from hypothesis. |
+| Result | 4.03x exceeds 4.0x → **H3 confirmed**. |
+| Strategic implication | The cash-rich structure is confirmed, *but* the §6.1 EVA finding suggests this liquidity is not earning its cost. Stage 5's §10 capital-structure recommendation must reconcile H3 (defensible cash buffer for stability and Vietnam/SE-Asia M&A optionality) with the EVA finding (excess capital destroying marginal value). **This tension is the central strategic question of the entire analysis.** The honest answer is likely: "preserve KRW ~3 trn as strategic-optionality buffer; deploy the remaining KRW ~3 trn into accretive M&A or returns to shareholders within 24 months." |
+
+---
+
+#### 8.3 Peer benchmark table (Stage 5 must populate)
 
 | Ratio | Samsung SDS FY2025 | LG CNS | NAVER Cloud | Accenture | TCS | IBM Consulting |
 |---|---:|---:|---:|---:|---:|---:|
@@ -497,7 +563,7 @@ Sources: peer annual reports / Bloomberg / Yahoo Finance, most recent fiscal yea
 3. Identify the **primary driver** of ROE — observe that low `RATIO_leverage` (1.31x vs IT-services norm 1.8–2.5x) is the principal constraint, while `RATIO_operating_profit_margin` and `RATIO_asset_turnover` sit at industry-norm levels.
 4. Comment on **sustainability** given Samsung SDS's conservative balance sheet (long-term debt-equity 0.05x).
 5. Compare each Du Pont component vs at least one peer (Accenture as global benchmark, LG CNS as Korean benchmark).
-6. Conclude: is FY2025 ROE of 7.8% structurally durable, cyclically depressed, or **deliberately under-leveraged** relative to its 9.0% cost of capital?
+6. Conclude: is FY2025 ROE of 7.8% structurally durable, cyclically depressed, or **deliberately under-leveraged** relative to its 9.0% cost of capital? Tie the answer back to §6.1 Reading 3 (Du Pont reconciliation framing of the EVA finding).
 
 ---
 
@@ -511,12 +577,12 @@ Deliver **four** strategic recommendations to Samsung SDS senior finance leaders
 - **Time-bound** — specifies a 12-, 24-, or 36-month horizon.
 - **Risk-aware** — acknowledges one trade-off or downside.
 
-**Mandatory coverage (driven by negative-EVA finding):**
+**Mandatory coverage (driven by negative-EVA finding from §6.1):**
 
-1. **Cost-of-capital gap closure (mandatory):** Actions to lift `RATIO_roc_start` from 8.9% above the 9.0% `cost_capital` and turn `RATIO_eva` positive within 24 months. Levers: tactical buybacks reducing equity base; deploying cash into higher-return cloud capex; portfolio rationalization in Logistics.
-2. **Capital structure:** Address low `RATIO_leverage` (1.31x) and the KRW 6,380 bn cash position (`currentYear_cash_marketable_securities`).
-3. **Working capital:** `RATIO_average_collection_period` 66.4 days is high for an IT-services peer set; compression target.
-4. **Investor communication:** Narrative supporting `RATIO_market_to_book` 1.41x in light of negative `RATIO_eva`.
+1. **Cost-of-capital gap closure (mandatory):** Actions to lift `RATIO_roc_start` from 8.9% above the 9.0% `cost_capital` and turn `RATIO_eva` positive within 24 months. Levers: tactical buybacks reducing equity base; deploying cash into higher-return cloud capex; portfolio rationalization in Logistics. **Frame per §6.1 Reading 2 — this is a capital-allocation problem, not an operating problem.**
+2. **Capital structure:** Address low `RATIO_leverage` (1.31x) and the KRW 6,380 bn cash position (`currentYear_cash_marketable_securities`). Target leverage ~1.55x (per §6.1 Reading 3 sensitivity).
+3. **Working capital:** `RATIO_average_collection_period` 66.4 days is high for an IT-services peer set; compression target. Tie to §8.1 Efficiency anchoring question on customer-base composition.
+4. **Investor communication:** Narrative supporting `RATIO_market_to_book` 1.41x in light of negative `RATIO_eva`. Tie to §8.1 Performance anchoring question on whether market optimism is justified.
 
 ---
 
@@ -528,15 +594,15 @@ Stage 5 deliverable is a single Markdown document, **8–12 pages** rendered, st
 |---|---|---|
 | Title block + 1-page **Executive Summary** | 1 page | Executive — verdict, three headline ratios, EVA finding, top recommendation |
 | §1 Company & Methodology | 0.5 page | Academic — restate company, periods, data sources, ratio framework, naming convention |
-| §2 Performance & Market Value | 1 page | Analytical — MVA 4,168; M/B 1.41x; **EVA (14) flagged finding** |
+| §2 Performance & Market Value | 1 page | Analytical — MVA 4,168; M/B 1.41x; **EVA (14) flagged finding with three-reading interpretation per §6.1** |
 | §3 Profitability | 1.5 pages | Analytical — all 6 profitability ratios + H1 test + EBIT vs NOPAT margin distinction |
 | §4 Efficiency & Working Capital | 1.5 pages | Analytical — all 7 efficiency ratios + segment commentary (H2 test) |
 | §5 Leverage | 1 page | Analytical — all 7 leverage ratios in context of conservative balance sheet |
 | §6 Liquidity | 1 page | Analytical — all 4 liquidity ratios + H3 test |
-| §7 Du Pont Decomposition (4-component) | 1 page | Analytical — components, primary driver = low leverage, peer comparison |
+| §7 Du Pont Decomposition (4-component) | 1 page | Analytical — components, primary driver = low leverage, peer comparison, tie to §6.1 Reading 3 |
 | §8 Peer Benchmark Summary | 1 page | Comparative — populated benchmark table + 2-paragraph synthesis |
 | §9 Strategic Recommendations | 1.5 pages | Executive — 4 recommendations per §10 criteria; cost-of-capital recommendation mandatory |
-| §10 Limitations | 0.25 page | Academic — segment data, single-year IS/CFS, FX exposure, K-IFRS vs IFRS, share-count rounding (V6) |
+| §10 Limitations | 0.25 page | Academic — segment data, single-year IS/CFS, FX exposure, K-IFRS vs IFRS, share-count rounding (V6), retained-earnings reconciliation residual (V10) |
 | References | 0.25 page | Standard |
 
 **Presentation conventions:**
@@ -545,7 +611,8 @@ Stage 5 deliverable is a single Markdown document, **8–12 pages** rendered, st
 - All numeric assertions traceable to a named range or peer source.
 - Headings in sentence case.
 - Executive summary uses bullet form; analytical body uses prose with embedded tables.
-- Negative-EVA finding referenced at least three times: Executive Summary, §2, §9.
+- Negative-EVA finding referenced at least three times: Executive Summary, §2, §9 — with three-reading framing in §2.
+- Hypothesis tests in §3, §4, §6 must cite the §8.2 framework rows explicitly.
 
 ---
 
@@ -560,3 +627,5 @@ Stage 5 deliverable is a single Markdown document, **8–12 pages** rendered, st
 - Stage 2 selection memo — `docs/decisions/2026-05-18-nguyen-samsung-sds-selection.md`
 - Spec template — `https://raw.githubusercontent.com/adamwstauffer/shidler/main/docs/templates/spec-template.md`
 - Stage 4 brief — `https://raw.githubusercontent.com/adamwstauffer/shidler/main/courses/BUS-629-VEMBA-International-Corporate-Finance/stage4-technical-specification.md`
+- Stage 4 instructor review (PR #1) — `docs/feedback/stage4-review-2026-05-27.md`
+- Stage 4 instructor sweep review (PR #2) — `docs/feedback/stage4-sweep-2026-05-28.md`
