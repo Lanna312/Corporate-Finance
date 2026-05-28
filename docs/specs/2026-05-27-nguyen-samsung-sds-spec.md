@@ -557,6 +557,6 @@ Stage 5 deliverable is a single Markdown document, **8–12 pages** rendered, st
 - Yahoo Finance — Samsung SDS Co., Ltd. (018260.KS). https://finance.yahoo.com/quote/018260.KS
 - Stage 1 ratios template — `models/templates/performance-ratios-template.xlsx`
 - Stage 3 populated workbook — `models/builds/2026-05-21-nguyen-samsung-sds-financials.xlsx`
-- Stage 2 selection memo — `Stage 2 selection memo — `docs/decisions/2026-05-18-nguyen-samsung-sds-selection.md`
+- Stage 2 selection memo — `docs/decisions/2026-05-18-nguyen-samsung-sds-selection.md`
 - Spec template — `https://raw.githubusercontent.com/adamwstauffer/shidler/main/docs/templates/spec-template.md`
 - Stage 4 brief — `https://raw.githubusercontent.com/adamwstauffer/shidler/main/courses/BUS-629-VEMBA-International-Corporate-Finance/stage4-technical-specification.md`
