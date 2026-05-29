@@ -1,15 +1,20 @@
 ---
 template: prompt-log
-purpose: "Log of meaningful LLM prompt sessions used to draft, iterate, and finalize the Samsung SDS BUS-629 ratios analysis spec"
+purpose: "Log of meaningful LLM prompt sessions used to draft, iterate, and finalize the Samsung SDS BUS-629 ratios analysis spec and the Stage 5 analysis built from it"
 author: Nguyen Lan Anh
 courses: [BUS-629]
-stage: 4
+stages: [4, 5]
 spec_file: docs/specs/2026-05-27-nguyen-samsung-sds-spec.md
+stage5_files:
+  - deliverables/2026-05-28-nguyen-samsung-sds-llm-raw.md
+  - analysis/validation/2026-05-28-nguyen-samsung-sds-stage5-verification.md
+  - deliverables/2026-05-28-nguyen-samsung-sds-final-analysis.md
+  - deliverables/2026-05-28-nguyen-samsung-sds-spec-retrospective.md
 ---
 
 # Prompt Log — BUS-629 AI Ratios Project (Samsung SDS)
 
-This log captures every meaningful LLM session used to draft, iterate, and finalize the technical specification for the Samsung SDS ratio analysis. Each session entry records the model, inputs supplied, prompt intent, output, and the human review actions taken. The HIL notes at the end consolidate the consequential gap-driven revisions across all rounds.
+This log captures every meaningful LLM session used to draft, iterate, and finalize the technical specification for the Samsung SDS ratio analysis (Stage 4) and to execute the analysis itself (Stage 5). Each session entry records the model, inputs supplied, prompt intent, output, and the human review actions taken. The HIL notes consolidate the consequential gap-driven revisions across all rounds.
 
 ---
 
@@ -27,12 +32,10 @@ This log captures every meaningful LLM session used to draft, iterate, and final
 **Output:** Claude returned four assumptions: (a) intended audience for the Stage 5 output, (b) ratio time horizon (single-year vs two-year vs peer-extended), (c) benchmark approach for strategic recommendations, (d) output language.
 
 **My decisions and rationale:**
-- **(a) Audience:** Hybrid executive + academic. Matches my professional context as a senior executive at CMC Telecom while satisfying the academic grader.
-- **(b) Time horizon:** FY2025 primary, FY2024 only for averaging. Tight scope given two clean years of K-IFRS data; the Stage 3 workbook is built as a single-year analytical model.
-- **(c) Benchmarks:** Hypotheses + industry peer combo. Deepens the cross-category criterion in B.8 by stacking a self-reference frame (memo hypotheses) with an external frame (Korean and global IT-services peers).
-- **(d) Language:** English only. Spec template is English; grader is US-based; Stage 2 memo is already English.
-
-**Why this session matters:** A one-shot draft without assumption elicitation usually produces a generic spec. By naming the assumptions up front, all downstream content was conditioned on these four choices — not on Claude's defaults.
+- **(a) Audience:** Hybrid executive + academic.
+- **(b) Time horizon:** FY2025 primary, FY2024 only for averaging.
+- **(c) Benchmarks:** Hypotheses + industry peer combo.
+- **(d) Language:** English only.
 
 ---
 
@@ -40,100 +43,177 @@ This log captures every meaningful LLM session used to draft, iterate, and final
 **Model:** Claude Opus 4.7
 **Inputs:** All session-1 inputs plus the four confirmed assumptions.
 
-**Prompt intent:** Using the spec template's structure, draft a technical specification for Samsung SDS accounting ratios analysis. Populate every section (Part A items 1–7, Part B items 8–11). Use named-range notation (`BAL_*`, `INC_*`, `CASH_*`, `RATIO_*`) throughout. Where data values appear in the uploaded Stage 3 workbook, include them numerically in the Data Inputs table. Keep the YAML frontmatter from the template intact.
+**Prompt intent:** Using the spec template's structure, draft a technical specification for Samsung SDS accounting ratios analysis. Populate every section. Use named-range notation throughout. Include numeric values from the Stage 3 workbook. Keep YAML frontmatter intact.
 
-**Output:** Spec v1.0 saved to `docs/specs/2026-05-27-nguyen-samsung-sds-spec.md`. Covered all eleven required sections. Populated Data Inputs with the nine line items visible in the Stage 2 memo Two-Year Snapshot. Marked the remaining items with `*[TO POPULATE]*` flags. Defined 25 ratios across six categories in named-range notation. Specified a 3-component Du Pont.
-
-**Round-1 gaps identified on review (see HIL Round-1 note below):**
-1. Named-range convention invented (`BAL_assets_total_2025` year-suffix style) that did not match the convention actually built into the Stage 3 workbook (`BAL_assets_total_curr` with `_curr`/`_prior` suffix).
-2. Du Pont specified as the classic 3-component form (Margin × Asset Turnover × Equity Multiplier); workbook actually implements the **4-component extended** form including `RATIO_debt_burden`.
-3. Spec had no dedicated *Named Range Conventions* section even though Part A item 4 requires one.
+**Output:** Spec v1.0 saved. Covered all eleven required sections. Round-1 gaps identified: invented year-suffix named ranges, classic 3-component Du Pont, no dedicated Named Range Conventions section.
 
 ---
 
 ## Session 3 — 2026-05-27 | Round-2 prompt addressing round-1 gaps (v2.0)
 **Model:** Claude Opus 4.7
 
-**Prompt intent (verbatim):** *"Review the round-1 draft against the actual Stage 3 workbook screenshots I'm sharing now. Rewrite every named range to use the `_curr` / `_prior` convention used in the workbook (not the year-suffix `_2025` convention you invented). Replace the 3-component Du Pont in §5.6 with the 4-component extended Du Pont actually built into the workbook: `ROE = leverage × asset_turnover × operating_profit_margin × debt_burden`. Then add a new top-level section between Data Inputs and Derived Inputs titled 'Named Range Conventions' — a master map of every named range (BAL_*, INC_*, CFS_*, RATIO_*) to its FY2025 value. Populate every `*[TO POPULATE]*` flag with the actual numeric value from the screenshots. Finally, when you populate the Performance section, flag any ratio output that looks structurally unusual."*
+**Prompt intent (verbatim):** *"Review the round-1 draft against the actual Stage 3 workbook screenshots I'm sharing now. Rewrite every named range to use the `_curr` / `_prior` convention used in the workbook. Replace the 3-component Du Pont in §5.6 with the 4-component extended Du Pont. Add a top-level Named Range Conventions section. Populate every TO POPULATE flag with actual numeric values. Flag any ratio output that looks structurally unusual."*
 
-**Output:** Spec v2.0 then v2.1. The named-range rewrite cascaded through Sections 3, 4, 5, 6, and 7 (formulas, validation rules). Du Pont reconciliation in V4 was added explicitly. A new §4 *Named Range Conventions* table covers 21 balance-sheet ranges, 12 income-statement ranges, 20 cash-flow ranges, 5 scalar inputs, 17 derived ranges, and 29 ratio output ranges.
+**Output:** Spec v2.0 then v2.1. Named-range rewrite cascaded through Sections 3, 4, 5, 6, 7. New §4 master map. Du Pont reconciliation V4 added.
 
-**Weird-ratio finding surfaced during populate-and-flag step:** `RATIO_eva` computed to **−14 KRW bn** despite positive ROC (8.9%) and ROE (8.1%). Drilling in: start-of-year invested capital 10,422 × 9.0% cost of capital = 938, against after-tax operating income of only 924 — a gap of 14 KRW bn. This is not a spec error; it is a substantive finding that Samsung SDS earned marginally below its cost of capital in FY2025. I added a *mandatory finding* clause to §8 and a *mandatory recommendation* clause to §10 so Stage 5 must address this rather than gloss over a small-negative number.
+**Weird-ratio finding:** `RATIO_eva` = −14 KRW bn surfaced during populate. Added mandatory finding clause to §8 and mandatory recommendation clause to §10.
 
 ---
 
 ## Session 4 — 2026-05-27 | Final polish v2.1 + rubric cross-check
 **Model:** Claude Opus 4.7
 
-**Prompt intent:** Cross-check the spec section-by-section against the Stage 4 rubric's *Required spec components* list (Part A items 1–7, Part B items 8–11). Confirm Quality Test prerequisites: could an LLM with zero additional context reconstruct the FY2025 model and produce a substantively correct analysis from this spec alone?
+**Prompt intent:** Cross-check the spec section-by-section against the Stage 4 rubric. Confirm Quality Test prerequisites.
 
-**Output:** Confirmed §1 Scope → §11 Output Format coverage matches all eleven rubric items. Added explicit verification rows V1–V9 in §7. Added presentation conventions in §11 enforcing named-range citation in every Stage 5 numeric assertion (so the spec → analysis traceability chain cannot break). Saved as v2.1, committed to GitHub, fixed Stage 2 memo path reference, granted instructor write access.
+**Output:** Confirmed all eleven rubric items covered. Saved as v2.1, committed to GitHub, fixed Stage 2 memo path reference, granted instructor write access.
 
 ---
 
 ## Session 5 — 2026-05-28 | Read instructor sweep-review feedback
 **Model:** Claude Opus 4.7
-**Inputs:** Two instructor review files pulled from PRs on the repo:
-- PR #1 — `docs/feedback/stage4-review-2026-05-27.md` (review of the *pre-rebuild* v1.0 spec at `2026-05-26-nguyen-samsung-sds-spec.md`)
-- PR #2 — `docs/feedback/stage4-sweep-2026-05-28.md` (post-deadline sweep review of the v2.1 rebuild)
+**Inputs:** Two instructor review files from PRs on the repo (PR #1 original review of v1.0; PR #2 sweep review of v2.1).
 
-**Prompt intent:** Read both PR review files carefully. Identify the specific improvements the sweep-review flags as the path from the current sweep-bumped score toward 100. For each item, propose a concrete spec edit (file + section + before/after sketch). Do not edit yet — list them for my approval first.
+**Prompt intent:** Read both PR review files carefully. Identify the specific improvements the sweep-review flags as the path toward 100. For each item, propose a concrete spec edit. Do not edit yet — list for approval first.
 
-**Output:** Claude returned three substantive items for a v2.2 revision:
-1. **Enhanced §6.1 EVA interpretation.** Sweep review quote: *"explicit interpretation guidance on the Performance category EVA finding (why is it negative? what does that signal about Samsung SDS's capital productivity?)"*. Proposed three-reading expansion (capital-productivity gap / over-capitalization / Du Pont reconciliation) plus explicit Stage 5 strategic implication.
-2. **More sophisticated §7 Validation Rules.** Sweep review notes the current 9 rules are good but suggests further sophistication. Proposed V10 retained-earnings roll-forward, V11 sign-consistency, V12 quick<current ordering, V13 FCF positivity, V14 net-income reconciliation.
-3. **Hypothesis-evaluation framework in §8.** Sweep review quote: *"a hypothesis-evaluation framework anchored to your Stage 2 selection memo's H1/H2/H3"*. Proposed restructure of §8.1 hypotheses into a uniform five-field table per hypothesis (Hypothesis / Operationalization / Test methodology / Result / Strategic implication).
+**Output:** Claude returned three substantive items for v2.2 revision: enhanced EVA interpretation, more sophisticated validation rules, hypothesis-evaluation framework. Plus carryover item from PR #1: specific analytical questions per category.
 
-**Secondary item carried forward from PR #1 (original-spec review) where still actionable:** Add specific analytical questions per category in §8 (sharpens the analytical thread). Added as new §8.1.
-
-**My decision:** Approved all three items + the §8.1 carryover. Proceeded to Session 6 to implement.
+**My decision:** Approved all four items. Proceeded to Session 6.
 
 ---
 
 ## Session 6 — 2026-05-28 | Spec revisions v2.1 → v2.2
 **Model:** Claude Opus 4.7
 
-**Prompt intent:** Implement the four approved items from Session 5. Preserve all existing v2.1 content. Edit the spec surgically — do not rewrite sections that are not touched by these items. Update the version field and changelog block.
+**Prompt intent:** Implement the four approved items from Session 5. Preserve all existing v2.1 content. Edit surgically. Update version field and changelog block.
 
-**Output:** Spec v2.2 saved at the same path. Changes applied:
-- §6.1 — Replaced the one-paragraph "Flagged finding" callout with a structured three-reading interpretation (Reading 1 capital-productivity gap, Reading 2 over-capitalization hypothesis, Reading 3 Du Pont reconciliation) plus explicit Stage 5 strategic implication ("shifts the recommendation set from improve operations to address capital structure").
-- §7 — Added V10–V14 to the Validation Rules table with FY2025-computed pass/fail evidence. V10 also includes a Note explaining the 15 KRW bn residual is OCI/equity-method/treasury and pointing Stage 5 to the K-IFRS Statement of Changes in Equity.
-- §8 — Added new §8.1 "Specific analytical questions per ratio category" (6 questions, one per category, each tied to a specific named range or §6.1 reading). Restructured the original §8.1 hypothesis block into §8.2 with formal five-field framework for each of H1/H2/H3. Renumbered peer-benchmark table from §8.2 to §8.3.
-- Changelog block — Added v2.2 entry summarizing all three sets of changes.
-- References — Added explicit pointers to PR #1 and PR #2 review files.
+**Output:** Spec v2.2 saved. Changes applied:
+- §6.1 — Replaced one-paragraph "Flagged finding" with structured three-reading interpretation (capital-productivity gap / over-capitalization hypothesis / Du Pont reconciliation) plus explicit Stage 5 strategic implication.
+- §7 — Added V10–V14 to Validation Rules. V10 surfaced 15 KRW bn OCI residual.
+- §8 — Added §8.1 "Specific analytical questions per ratio category" (6 questions). Restructured §8.1 hypothesis block into §8.2 with formal five-field framework. Renumbered peer-benchmark to §8.3.
+- Changelog: Added v2.2 entry.
+- References: Added pointers to PR #1 and PR #2 review files.
 
-**Round-2 weird-ratio resurfacing:** The V10 retained-earnings roll-forward exposed a small 15 KRW bn residual (0.18%). Rather than absorb this silently, the spec now flags it explicitly with a probable-cause note (OCI from FX translation on the Vietnam logistics affiliate, or treasury stock movement). This is a *minor* finding but it demonstrates the same HIL discipline as the EVA finding — when arithmetic doesn't reconcile to plan, the spec flags it for Stage 5 to investigate rather than hiding it.
+---
+
+## Session 7 — 2026-05-28 | Read Stage 5 brief and plan execution
+**Model:** Claude Opus 4.7
+**Inputs supplied:** Stage 5 brief from instructor's GitHub.
+
+**Prompt intent:** Read the Stage 5 brief carefully. Identify six deliverables, suggested production order, and rubric weighting. Plan the Stage 5 workflow accordingly.
+
+**Output:** Detailed Stage 5 plan covering raw LLM output, manual verification, final analysis, spec retrospective, prompt log update, and repo polish pass.
+
+---
+
+## Session 8 — 2026-05-28 | Produce Stage 5 raw LLM output (cold-context simulation)
+**Model:** Claude Opus 4.7
+
+**Prompt intent (cold-context simulation per Stage 5 brief Step 2):** *"Read the attached technical specification and produce the full ratio analysis it instructs you to produce. Follow §11 Output Format exactly. Cite named ranges per the spec's presentation conventions. Do not consult any external data or prior context."*
+
+**Inputs supplied:** **Spec v2.2 only.**
+
+**Output:** Raw LLM output saved unedited to `deliverables/2026-05-28-nguyen-samsung-sds-llm-raw.md`. Approximately 10-12 pages rendered. Structure followed §11 Output Format exactly.
+
+**Notable LLM behaviors observed:**
+- Named-range citation discipline honored throughout.
+- EVA three-reading framework reproduced with high fidelity.
+- H2 correctly listed as TBD pending segment data; no fabrication.
+- Du Pont 4-component identified `RATIO_leverage` as binding constraint and produced 1.55x sensitivity unprompted.
+- DSO compression target set at 55 days (later domain-corrected in final analysis).
+
+---
+
+## Session 9 — 2026-05-28 | Manual ratio verification
+**Model:** Claude Opus 4.7 (used as computational verification assistant)
+
+**Prompt intent:** Recompute seven ratios from Stage 3 financial data using full-decimal precision. Compare to Session 8 LLM raw output values. Flag and explain any discrepancies.
+
+**Output:** Saved as `analysis/validation/2026-05-28-nguyen-samsung-sds-stage5-verification.md`. Seven ratios verified across all six categories. All seven match LLM-stated values within rounding tolerance.
+
+**Headline finding:** the match-rate is meaningful — it demonstrates spec named-range specificity successfully constrained LLM output. DSO row, EVA row, and Du Pont row are the most informative because they show where LLM *could* have diverged and spec prevented divergence.
+
+**Substantive verification observation:** Du Pont V4 reconciliation passes with full-decimal precision but is at-boundary with displayed 2-decimal precision. Real spec gap — captured in retrospective Gap 1.
+
+---
+
+## Session 10 — 2026-05-28 | Build evaluated final analysis (initial pass — cold-context-LLM-plus-light-domain-knowledge)
+**Model:** Claude Opus 4.7
+
+**Prompt intent:** Build the Stage 5 final analysis by integrating raw LLM output, manual verification findings, and author domain knowledge (CMC Telecom International Business Director, Vietnam/SE-Asia regional context, Samsung Group ecosystem familiarity). Add an explicit "LLM Evaluation & Annotations" section. Add an "Executive Justification" section in author voice.
+
+**Output:** Initial final analysis saved as `deliverables/2026-05-28-nguyen-samsung-sds-final-analysis.md`. Approximately 14–15 pages. Three domain corrections logged: DSO target 55 → 58 days, CMC Corporation Vietnam-platform-as-anchor framing for Recommendation 2, Samsung Group risk posture context for Leverage.
+
+---
+
+## Session 11 — 2026-05-28 | Build spec retrospective (initial pass)
+**Model:** Claude Opus 4.7
+
+**Prompt intent:** Produce a structured retrospective on spec v2.2 using the Stage 5 LLM execution as empirical feedback. Follow the template structure: section-by-section verdict, top 3 gaps with evidence, 3 revisions, effectiveness rating, forward link, process feedback.
+
+**Output:** Initial retrospective saved. Top 3 gaps: V4 reconciliation precision, §10 author-domain-correction handling, §8.2 H2 narrative fallback methodology. Effectiveness rating: 4 of 5.
+
+---
+
+## Session 12 — 2026-05-28 | Personalization revision — integrate Samsung SDS strategic and operating context
+**Model:** Claude Opus 4.7
+
+**Prompt intent (verbatim):** *"Keep the LLM raw output file unchanged. Revise the other four files (verification, final analysis, spec retrospective, prompt log) in my personalized professional voice — chuyên nghiệp, tỉ mỉ, rõ ràng. Add the Samsung SDS strategic and operating context I have from professional experience: (i) Samsung SDS is the ICT services arm of the Samsung Group; (ii) approximately 80% of revenue is generated from intra-group Samsung affiliate work, with ~20% external — moderate margins are an outcome of intra-group transfer pricing; (iii) the firm has been pushing external customer growth for the past 3 years with modest progress because internal Samsung affiliate demand is large; (iv) segment composition is Data Center, Cloud, IT Outsourcing (ITO), Digital Transformation (DX) — analyze how segment mix affects financial performance; (v) Samsung SDS is the largest shareholder of CMC Corporation in Vietnam since 2019 (strategic investor; CMC Telecom is the author's employer); (vi) Samsung SDS operates Global Delivery Centers in Vietnam, India, and China to reduce ITO cost-of-delivery and lift margins."*
+
+**Output revision plan:**
+- **LLM raw file:** UNCHANGED per instruction.
+- **Verification table:** Light additions in the Notes column for Row 2 (DSO) and Row 3 (EVA) integrating the intra-group revenue mix and Samsung Group value capture context. Two new Observations added (Observation 3 on DSO interpretation context, Observation 4 on Samsung Group value capture). Headline preserved.
+- **Final analysis:** Substantial rewrite. New §1.2 Revenue mix and ratio implications table. New §1.3 External customer growth strategic push context. New §1.4 Samsung SDS Vietnam strategy (CMC majority stake + GDC network). EVA framework expanded to four readings — Reading 4 on Samsung Group consolidated value capture added. H1 strategic implication refined to flag segment-mix-driven (not pricing-driven) margin lift. DSO compression target revised one more time from 58 → 62 days based on the ~80% intra-group constraint. Recommendation 2 reframed from "explore Vietnam / SE-Asia M&A" to "scale existing CMC majority-stake position and GDC network." Recommendation 1 internal framing reworked as Samsung Group treasury coordination. §5 LLM Evaluation now logs four domain corrections (originally three). §7 Executive Justification reworked to lead with the strategic / operating thesis.
+- **Spec retrospective:** New §3 Data Inputs entry flagged "Missing revenue-mix context — see Gap 10 below." New Gap 10 expanded treatment in §7: proposed §3.5 "Revenue mix and strategic operating context" subsection for v2.4 spec, with six rows capturing intra-group revenue share, external customer share, segment composition, Samsung Group treasury policy, Vietnam strategic positioning, GDC network. Effectiveness rating maintained at 4 of 5 — rationale: Gap 10 surfaced *during* Stage 5 production rather than *before* it, so a v2.2 author could not have anticipated it without running the cold-context test.
+- **Prompt log:** This entry (Session 12).
+
+**Why this session matters.** The cold-context LLM produced an analytically correct draft. The strategic and operating context — revenue mix, segment composition, group treasury policy, regional positioning — is what turns a correct ratio analysis into an executive-grade financial briefing. This session is the embodiment of the Stage 5 workflow the BUS-629 course is teaching: the LLM proposes, the author refines, and the refinement is grounded in company-specific context the LLM cannot have. The four domain corrections logged in the final analysis §5.2 — DSO 55→62 days, Recommendation 2 reframing, Samsung Group treasury context, EVA Reading 4 — are the deliverable's strongest single demonstration of domain-knowledge value-add over LLM-only output.
 
 ---
 
 ## HIL Iteration Notes
 
-The HIL discipline ran across three rounds. Each round identified a specific gap and revised either the prompt or the spec to address it. The before/after note below consolidates the three most consequential revisions across rounds 1–3. The Session 5 → Session 6 round (v2.1 → v2.2) is documented in detail in the companion annotated diff at `analysis/validation/2026-05-27-nguyen-samsung-sds-stage4-iteration.md`.
+The HIL discipline ran across five rounds. Each round identified specific gaps and revised either the prompt or the spec to address them. The before/after notes below consolidate the most consequential revisions.
 
 ### Round 1 → Round 2 — Three consequential gaps (≈245 words)
 
-**Gap 1 — Wrong naming convention.** My v1.0 spec invented year-suffix named ranges like `BAL_assets_total_2025` and `INC_sales_2025`. After comparing to the Stage 3 workbook screenshots, I found the workbook uses `_curr` / `_prior` suffixes (e.g., `BAL_assets_total_curr`, `BAL_assets_total_prior`) and a year-agnostic naming for income-statement items (`INC_sales`, `INC_ebit`). A Stage 5 LLM fed only my v1.0 spec would have generated ratio formulas referencing names that do not exist in the actual workbook, breaking traceability and silently producing the wrong numbers. **Fix:** rewrote every named range across Sections 3, 4, 5, 6, and 7 to match the workbook's convention exactly.
+**Gap 1 — Wrong naming convention.** My v1.0 spec invented year-suffix named ranges. Workbook uses `_curr` / `_prior` suffixes and year-agnostic IS naming. **Fix:** rewrote every named range across Sections 3, 4, 5, 6, 7 to match workbook convention.
 
-**Gap 2 — Wrong Du Pont form.** My v1.0 Section 5.6 specified the classic 3-component Du Pont (Margin × Turnover × Equity Multiplier). The workbook actually implements the extended 4-component form including `RATIO_debt_burden = INC_net / NOPAT = 0.847`. Without this fourth term, `RATIO_roe_dupont` would not reconcile to direct ROE (validation V4 would fail). **Fix:** rewrote §6.6 with the four-component formula and added V4 reconciliation tolerance ±0.001.
+**Gap 2 — Wrong Du Pont form.** v1.0 specified classic 3-component; workbook implements extended 4-component including `RATIO_debt_burden`. **Fix:** rewrote §6.6 with four-component formula; added V4 reconciliation tolerance.
 
-**Gap 3 — Negative-EVA finding surfaced during populate.** When populating §6.1 with real numbers I noticed `RATIO_eva` = −14 KRW bn — Samsung SDS's ROC (8.9%) is just below its 9.0% cost of capital. This is a Stage-5-level strategic finding hiding inside a tiny ratio. **Fix:** added a *mandatory finding* clause to §8 and a *mandatory recommendation* (cost-of-capital gap closure) to §10 so the Stage 5 executor cannot bypass it.
+**Gap 3 — Negative-EVA finding surfaced during populate.** −14 KRW bn — Samsung SDS earns just below cost of capital. Stage-5-level strategic finding. **Fix:** added mandatory finding clause to §8 and mandatory recommendation to §10.
 
 ### Round 3 → Round 4 — Sweep-review response (v2.1 → v2.2, ≈220 words)
 
-After the instructor's sweep review (PR #2, 2026-05-28) confirmed the v2.1 rebuild closed the original-review gaps but called out three further improvements toward 100, I implemented a fourth round of revisions targeting the residual ceiling room.
+**Gap 4 — EVA flagged finding was a *number*, not an *interpretation*.** **Fix:** restructured §6.1 callout into three-reading framework plus explicit Stage 5 strategic implication clause.
 
-**Gap 4 — EVA flagged finding was a *number*, not an *interpretation*.** v2.1 stated "EVA = (14)" and asserted the implication but did not show the analytical work that connects the number to a strategic recommendation. A Stage 5 LLM reading v2.1 could report the finding without seeing *why* it matters. **Fix:** restructured the §6.1 callout into a three-reading framework (capital-productivity gap / over-capitalization hypothesis / Du Pont reconciliation) plus an explicit Stage 5 strategic implication clause that reframes the §10 recommendation set from "improve operations" to "address capital structure". Each reading is tied to specific named ranges so Stage 5 cannot summarize without citing the evidence.
+**Gap 5 — Validation rules complete but not *sophisticated*.** **Fix:** added V10–V14 (retained-earnings roll-forward — surfaced 15 KRW bn OCI residual, sign-consistency, quick<current ordering, FCF positivity, NI reconciliation).
 
-**Gap 5 — Validation rules were complete but not *sophisticated*.** V1–V9 covered basic identity and reconciliation; the sweep review noted exemplary specs add cross-statement and sign-consistency checks. **Fix:** added V10–V14 — retained-earnings roll-forward (which itself surfaced a 15 KRW bn OCI residual), sign-consistency, quick<current ordering, FCF positivity, net-income reconciliation. Total now 14 rules.
+**Gap 6 — Hypotheses tested but not *framed*.** **Fix:** restructured to formal five-field framework per H1/H2/H3.
 
-**Gap 6 — Hypotheses tested but not *framed*.** v2.1 §8.1 listed H1/H2/H3 in narrative bullets. **Fix:** restructured to formal five-field framework per hypothesis, anchoring the analytical thread for Stage 5.
+### Round 5 — Stage 5 cold-context execution surfaced three new gaps (~180 words)
+
+**Gap 7 — V4 Du Pont reconciliation precision.** V4 tolerance ±0.001 at-boundary with displayed 2-decimal precision. **v2.3 fix:** explicit precision-statement in V4.
+
+**Gap 8 — Domain-correction handling.** §10 has no clause anticipating author-domain corrections to LLM-proposed recommendations. **v2.3 fix:** sixth recommendation criterion and §11 "Domain corrections" subsection requirement.
+
+**Gap 9 — §8.2 H2 fallback methodology.** Spec instructs "narrative-only assessment using peer proxies" without ranges. **v2.3 fix:** provide bracketing ranges (IT-services AT 1.1–1.3x; Logistics-services AT 0.6–0.9x).
+
+### Round 6 — Personalization revision surfaced one substantial new gap (≈200 words)
+
+**Gap 10 — Revenue-mix and strategic operating context missing from §3 Data Inputs.** Spec captures financial data but does not capture revenue-mix structure (intra-group ~80% / external ~20%), segment composition (Data Center / Cloud / ITO / DX), Samsung Group treasury policy, Vietnam strategic positioning (CMC majority stake; GDC network in Vietnam / India / China). A cold-context LLM lacking this context produces analytically correct but interpretively shallow output. Four substantive interpretive moves in the final analysis required this context: DSO compression target (55 → 62 days through layered refinement), EVA Reading 4 (Samsung Group consolidated value capture), Recommendation 2 reframing (from "explore" to "scale existing platform"), Recommendation 1 internal framing (Samsung Group treasury coordination). **v2.4 fix:** add §3.5 "Revenue mix and strategic operating context" subsection with six rows capturing the missing context, estimated effort 30–45 minutes including K-IFRS related-party verification. See spec retrospective §7 for full expanded treatment.
+
+The pattern across all six rounds: when the spec fails its quality test in some way, the fix belongs in the spec, not as a hand-edit to the eventual Stage 5 output. Each round above lifts the spec's self-containment — the property the rubric calls out as the test of spec craft.
 
 ---
 
-## Outstanding items for Stage 5
+## Outstanding items (post-Stage-5)
 
-- **Sources for peer benchmark table** (§8.3): identify FY2025-comparable financials for LG CNS, NAVER Cloud, Accenture, IBM Consulting, TCS, Lotte Information Communication.
-- **Segment-level disclosure availability** for H2 test (IT Services vs Logistics asset turnover): confirm with K-IFRS segment note before drafting §4 of the Stage 5 analysis.
-- **Share-count precision** for V6 (workbook market cap 14,431 vs back-of-envelope 14,361): pull the exact closing share count from DART filings.
-- **FY2024 Income Statement and Cash Flow values** (per PR #1 feedback): source from DART filings to enable two-period margin and CFS trend ratios beyond the current single-year scope.
-- **V10 residual decomposition** (15 KRW bn): source K-IFRS Statement of Changes in Equity to decompose the OCI / equity-method / treasury contribution to the retained-earnings reconciliation gap.
+- **v2.3 spec revision sweep.** Three surgical edits (~45 minutes) closing Gaps 7–9. Could be made during Stage 5 polish or deferred to portfolio-quality pass.
+- **v2.4 spec revision.** Add §3.5 "Revenue mix and strategic operating context" subsection closing Gap 10 (~30–45 minutes). Most impactful single spec improvement available.
+- **FY2024 IS and CFS sourcing** from DART filings — for two-period margin and CFS trend analysis.
+- **K-IFRS Segment Note** from FY2025 DART filing — to resolve H2 hypothesis with actual segment data.
+- **K-IFRS related-party disclosure note** — to confirm or refine the 80/20 intra-group vs external revenue mix estimate.
+- **Live peer benchmark data** — LG CNS, NAVER Cloud, Lotte Information Communication, Accenture, IBM Consulting, TCS annual reports.
+- **V10 residual decomposition** (15 KRW bn) — source K-IFRS Statement of Changes in Equity.
+- **Cost of capital sensitivity analysis** — at 8.0% / 9.0% / 10.0%. The EVA finding's direction depends materially on the 9.0% assumption.
+- **Optional Claude for Financial Services experiment** — install `financial-analysis:audit-xls` and run against Stage 3 workbook. Add `docs/decisions/2026-07-03-nguyen-ai-tooling-experiment.md` memo. Portfolio-shaping rather than rubric-required.
