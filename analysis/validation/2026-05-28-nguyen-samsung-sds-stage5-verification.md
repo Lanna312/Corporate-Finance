@@ -3,7 +3,7 @@ template: stage5-verification
 purpose: "Manual ratio verification — recompute seven ratios by hand from Stage 3 financial data and compare to the LLM's stated values from the raw output. Flag and explain any discrepancies. Where ratio interpretation depends on revenue-mix or segment structure, document the context."
 author: Nguyen Lan Anh
 date: 2026-05-28
-company: Samsung SDS Co., Ltd. (KRX: 018260)
+company: "Samsung SDS Co., Ltd. (KRX: 018260)"
 courses: [BUS-629]
 stage: 5
 source_workbook: models/builds/2026-05-21-nguyen-samsung-sds-financials.xlsx
