@@ -55,6 +55,20 @@ Project work generally follows the process below:
 5. Produce presentation-ready deliverables
 
 ---
+## Project Status — BUS-629 AI Ratios Project (Samsung SDS)
+
+| Stage | Status | Key artifact | Commit |
+|---|:---:|---|---|
+| 0 — Repo setup | ✓ | README, LICENSE, .gitignore | `ac06372` |
+| 1 — Template architecture | ✓ | `models/templates/performance-ratios-template.xlsx` | `e37d2aa` |
+| 2 — Company selection memo | ✓ | `docs/decisions/2026-05-18-nguyen-samsung-sds-selection.md` | `c7a96a4` |
+| 3 — Model population + validation | ✓ | `models/builds/2026-05-21-nguyen-samsung-sds-financials.xlsx` | `d018657` |
+| 4 — Technical specification | ✓ v2.2 | `docs/specs/2026-05-27-nguyen-samsung-sds-spec.md` | `78f574d` |
+| 5 — LLM analysis + retrospective + polish | ✓ | `deliverables/2026-05-28-nguyen-samsung-sds-final-analysis.md` | (current) |
+
+## What you'll find here
+
+This repository is the portfolio artifact for the BUS-629 International Corporate Finance project at the University of Hawaii Shidler College of Business (VEMBA). It documents a five-stage spec-driven ratio analysis of Samsung SDS Co., Ltd. (KRX: 018260), from initial template design through LLM-executed analysis with human-in-the-loop iteration. The repo structure follows the workflow practiced in real corporate finance teams — separating templates, builds, decisions, specs, validation, and deliverables. All artifacts are public; the analysis is academic. Author: Nguyen Lan Anh, Director of International Business at CMC Telecom.
 
 ## Portfolio Information
 
