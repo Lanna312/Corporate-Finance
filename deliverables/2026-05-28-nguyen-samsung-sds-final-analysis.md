@@ -3,7 +3,7 @@ template: stage5-final-analysis
 purpose: "Evaluated final analysis — edited, annotated, and corrected version of the raw LLM output, integrated with manual verification findings, author domain knowledge, and Samsung SDS strategic and operating context. Stage 5 Deliverable #3."
 author: Nguyen Lan Anh
 date: 2026-05-28
-company: Samsung SDS Co., Ltd. (KRX: 018260)
+company: "Samsung SDS Co., Ltd. (KRX: 018260)"
 courses: [BUS-629]
 stage: 5
 inputs:
@@ -53,7 +53,7 @@ Samsung SDS is the ICT services arm of the Samsung Group. **Approximately 80% of
 
 ---
 
-## §1 Company & Strategic Context
+## §1 Company & Data Summary
 
 ### §1.1 Company overview
 
